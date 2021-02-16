@@ -23,8 +23,12 @@ model.eval()
 source_image_dir = '../bridge_images/'
 destination_mask = '../predicted_masks/'
 destination_overlays = '../combined_overlays/'
-for image_name in tqdm(os.listdir(source_image_dir)):
-    print(image_name)
-    image_path = source_image_dir + image_name
-    generate_images(model, image_path, image_name, destination_mask, destination_overlays)
-
+try:
+    while(true)
+        for image_name in tqdm(os.listdir(source_image_dir)):
+            print(image_name)
+            image_path = source_image_dir + image_name
+            generate_images(model, image_path, image_name, destination_mask, destination_overlays)
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("Finished")
