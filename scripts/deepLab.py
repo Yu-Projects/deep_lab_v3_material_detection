@@ -16,7 +16,7 @@ import time
 
 # Load the trained model, you could possibly change the device from cpu to gpu if
 # you have your gpu configured.
-model = torch.load("../../../../saved_models/var10_weights_ep18.pt", map_location=torch.device('cpu'))
+model = torch.load("../../../../saved_models/simu_weights_19.pt", map_location=torch.device('cpu'))
 
 # Set the model to evaluate mode
 model.eval()
