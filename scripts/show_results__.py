@@ -55,7 +55,7 @@ def generate_images(model, image_path, name, destination_mask, destination_overl
     mapping = {0:np.array([0,0,0], dtype=np.uint8), 1:np.array([128,0,0], dtype=np.uint8),
                2:np.array([0,128,0], dtype=np.uint8), 3:np.array([128,128,0], dtype=np.uint8)}
 
-    y_pred_tensor = mask_pred
+    y_pred_tensor = mask_pred['out']
     pred = torch.argmax(y_pred_tensor, dim=1)
     y_pred = pred.data.cpu().numpy()
 
