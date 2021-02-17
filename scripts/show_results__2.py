@@ -25,21 +25,11 @@ def generate_images(model, image_path, name, destination_mask, destination_overl
     # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     # cv2.imshow('show', image)
     # cv2.waitKey(0)
-    width, height = image.shape[1], image.shape[0]
-    min_ = min(width, height)
-    dim = [min_, min_]
-	#process crop width and height for max available dimension
-    crop_width = dim[0] if dim[0]<image.shape[1] else image.shape[1]
-    crop_height = dim[1] if dim[1]<image.shape[0] else image.shape[0]
-    mid_x, mid_y = int(width/2), int(height/2)
-    cw2, ch2 = int(crop_width/2), int(crop_height/2) 
-    crop_img = image[mid_y-ch2:mid_y+ch2, mid_x-cw2:mid_x+cw2]
-    image = cv2.resize(crop_img, (512,512))
     img = image.transpose(2,0,1)
     img = img.reshape(1,3,512,512)
     
     with torch.no_grad():
-        mask_pred = model(torch.from_numpy(img).type(torch.cuda.FloatTensor))
+        mask_pred = model(torch.from_numpy(img).type(torch.FloatTensor))
         
     # color mapping corresponding to classes
     # ---------------------------------------------------------------------
@@ -52,7 +42,7 @@ def generate_images(model, image_path, name, destination_mask, destination_overl
     mapping = {0:np.array([0,0,0], dtype=np.uint8), 1:np.array([128,0,0], dtype=np.uint8),
                2:np.array([0,128,0], dtype=np.uint8), 3:np.array([128,128,0], dtype=np.uint8)}
     
-    y_pred_tensor = mask_pred
+    y_pred_tensor = mask_pred['out']
     pred = torch.argmax(y_pred_tensor, dim=1)
     y_pred = pred.data.cpu().numpy()
     

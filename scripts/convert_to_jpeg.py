@@ -9,7 +9,7 @@ import os
 from tqdm import tqdm   
 import cv2
 
-source_image_dir = '/home/klyu/bridgeInspection/trainingImages/bridge4/'
+source_image_dir = '/home/klyu/catkin_ws/src/deep_lab_v3_material_detection/bridge_images/'
 
 for image_name in tqdm(os.listdir(source_image_dir)):
     print(image_name)
